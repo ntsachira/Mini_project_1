@@ -65,5 +65,5 @@ Program : Study Plan Generator
 	Enf If
 
 
-	Arrange total hours per module in descending order
+	Arrange total hours per module in descending 
 			
