@@ -27,9 +27,6 @@ void ranker(int *ptr, int modCount)
 int main()
 {
 
-
-
-
     int hour[20]= {12,33,2,43,22,77,5};
 
     int x, modCount = 7;
