@@ -1,0 +1,69 @@
+Program : Study Plan Generator
+	Display
+		"Welcome to the study plan generator"
+	Display 
+		"Tips:You must Hit Enter after each data entry"
+	Read
+		z=0,C=0,modCount=0
+
+
+	Do
+		modCount = modCount+1
+
+		Enter 
+			module 1
+		Enter
+			the number of lecture recordings as x
+		Enter 
+			average length of a recording as y
+
+		y=y+(y/2)
+		Total hours for recordings(z) = z(x*y)/60
+
+		Enter 
+			the total number of pages of reading meterials as A
+		Enter 
+			how much time do you need(in minutes) to read 10 pages as B
+
+		Total hours for notes reading(C) = C+[A*(B/60*10)]
+		Total hours for the mod(tHM) = C+z
+		Total hours(tH) = tH+tHM
+	
+		Do you want to add another module?(Input1)
+
+	While Input1 = Y or y
+	End while
+
+
+	Enter 
+		the average number of sleeping hours as sH
+	Enter 
+		average free time for a day as avg_fH
+
+	Estimated time duration = (tH/avg_fH)
+
+	Display
+		Estimated time duration to complete your work
+
+
+	If sH>5
+		then
+			Do you wish to reduce your sleeping hours,to reduce the time duration to complete the work?(Input2)
+		else
+
+			If Input2 Y or y
+				then 
+					Enter new sleeping hours as n_sH
+				else
+			End If
+
+			Extra time(eT) = sH-n_sH
+			New estimated time duration = [(tH+eT)/avg_fH]/24
+
+		Display
+			New estimated time duration
+	Enf If
+
+
+	Arrange total hours per module in descending order
+			
