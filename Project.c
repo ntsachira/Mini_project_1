@@ -24,7 +24,7 @@ int main()
         printf("\nEnter the number of lecture recordings\t: ");
         scanf("%d",&temp1[0]);
 
-        printf("\nEnter the average length of a recording\t: ");
+       // printf("\nEnter the average length of a recording\t: ");
         scanf("%d",&temp1[1]);
 
     }
