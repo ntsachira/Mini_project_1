@@ -30,7 +30,7 @@ int main()
 
 
 
-    /*int hour[20]= {12,33,2,43,22,77,5};
+    int hour[20]= {12,33,2,43,22,77,5};
 
     int x, modCount = 7;
 
@@ -39,7 +39,7 @@ int main()
     for(x=0; x<modCount; x++)
     {
         printf("%d\n",hour[x]);
-    }*/
+    }
 
     return 0;
 }
