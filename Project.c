@@ -27,9 +27,6 @@ int main()
         printf("\nEnter the average length of a recording\t: ");
         scanf("%d",&temp1[1]);
 
-        temp1[2]+= temp
-
-
     }
 
 
