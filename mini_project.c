@@ -68,7 +68,7 @@ int main()
 		estimated_time_duration++;
 		printf("Estimated time duration to complete your works : %d",(int)estimated_time_duration);
 	}*/
-
+//stp
 
 
 	return 0;
