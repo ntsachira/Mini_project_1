@@ -61,13 +61,13 @@ int main()
 
 	float estimated_time_duration = total/free_min ;// 163min/ 30min = 5......
 
-	if ( estimated_time_duration - (int)estimated_time_duration >0 ) {
+/*	if ( estimated_time_duration - (int)estimated_time_duration >0 ) {
 		estimated_time_duration++;
 		printf("Estimated time duration to complete your works : %d",(int)estimated_time_duration);
 	} else {
 		estimated_time_duration++;
 		printf("Estimated time duration to complete your works : %d",(int)estimated_time_duration);
-	}
+	}*/
 
 
 
