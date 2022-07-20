@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-int counter1,counter2;
+
+int counter1,counter2,temp2;          //global variables
 float temp1[20], tHours[20];
 
 int main()
@@ -14,11 +15,16 @@ int main()
     printf("\n\nEnter the number of modules you wish to include\t: ");
     scanf("%d",&modTotal);
 
-    char mods[modTotal][20];
+    char mods[modTotal][20];    //array of strings use to record modules
 
     recorder(&mods[0], modTotal); //calling the recorder function
 
+    ranker(&tHours[0],&mods[0], modTotal); //calling the ranker function
 
+     for(counter1=0; counter1<modTotal; counter1++)
+    {
+        printf("\n\n%s : %.1f\n\n",mods[counter1],tHours[counter1]);
+    }
 
     return 0;
 }
@@ -26,7 +32,6 @@ int main()
 
 void divider()
 {
-   // printf("\n******************************************************************");
     printf("____________________________________________________________________\n\n");
 }
 
@@ -57,11 +62,30 @@ void recorder(char *mods, int modTotal)
 
         mods+=20;
     }
-divider();
+
+    divider();
+
+    printf("\nEnter your average sleeping time per day (in hours)\t: ");
+    scanf("%f",&temp1[10]);
+
+    printf("\n\nEnter the average number of hours you free for study in a normal day (in hours)\t: ");
+    scanf("%f",&temp1[11]);
+
+
+    temp1[12]= temp1[4]/temp1[11];      //temp1[12] = estimated number of days
+
+    temp2 = (int)temp1[12]; //integer casting
+
+    if(temp2 == temp1[12])
+    {
+        printf("\n\nEstimated time duration to complete you workload\t: %d Days",temp2);
+    }
+    else printf("\n\nEstimated time duration to complete you workload\t: %d Days",++temp2);
+
 }
 
 
-void ranker(int *ptr, int modCount)
+void ranker(float *ptr,char *mods, int modCount)
 {
     for(counter1 = 1; counter1 < modCount; counter1++)
     {
@@ -74,10 +98,16 @@ void ranker(int *ptr, int modCount)
                 c = *ptr;
                 *ptr = *(ptr+1);
                 *(ptr+1) = c;
+
+                c = *mods;
+                *mods = *(mods+1);
+                *(mods+1) = c;
             }
             ptr++;
+            mods+=20;
         }
         ptr = ptr - (modCount-1);
+        mods = mods - ((modCount-1)*20);
     }
 }
 
