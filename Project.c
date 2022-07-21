@@ -21,10 +21,12 @@ int main()
 
     ranker(&tHours[0],&mods[0], modTotal); //calling the ranker function
 
-     for(counter1=0; counter1<modTotal; counter1++)
-    {
-        printf("\n\n%s : %.1f\n\n",mods[counter1],tHours[counter1]);
-    }
+    /*  for(counter1=0; counter1<modTotal; counter1++)
+     {
+         printf("\n\n%s : %.1f\n\n",mods[counter1],tHours[counter1]);
+     }*/
+
+
 
     return 0;
 }
@@ -32,7 +34,28 @@ int main()
 
 void divider()
 {
-    printf("____________________________________________________________________\n\n");
+    printf("____________________________________________________________________\n");
+}
+
+void sleepCheck()
+{
+
+    if(temp1[10]>6)
+    {
+        printf("\n*****************************ALERT!*****************************");
+        printf("\n\nYOU ARE SLEEPING TOO MUCH! Do you wish to reduce sleeping? [Y/N] : ");
+        char c;
+        scanf("%s",&c);
+
+        if(c == 'y'||c == 'Y')
+        {
+            printf("\nEnter your new sleeping time (in hours)\t: ");
+            scanf("%f",&temp1[10]);
+
+            sleepCheck();   //recurssion
+        }
+    }
+
 }
 
 
@@ -59,16 +82,18 @@ void recorder(char *mods, int modTotal)
 
         temp1[4]+= tHours[counter1]; //temp1[4] = sum of the total hours per module
 
-
+        divider();
         mods+=20;
     }
 
-    divider();
 
-    printf("\nEnter your average sleeping time per day (in hours)\t: ");
+
+    printf("\n\nEnter your average sleeping time per day (in hours)\t: ");
     scanf("%f",&temp1[10]);
 
-    printf("\n\nEnter the average number of hours you free for study in a normal day (in hours)\t: ");
+    sleepCheck();
+
+    printf("\nEnter the average number of hours you free for study in a normal day (in hours)\t: ");
     scanf("%f",&temp1[11]);
 
 
@@ -78,9 +103,17 @@ void recorder(char *mods, int modTotal)
 
     if(temp2 == temp1[12])
     {
-        printf("\n\nEstimated time duration to complete you workload\t: %d Days",temp2);
+        printf("\n\n-----------------------------------------------------------------");
+        printf("\nEstimated time duration to complete you workload\t: %d Days",temp2);
+        printf("\n-----------------------------------------------------------------");
     }
-    else printf("\n\nEstimated time duration to complete you workload\t: %d Days",++temp2);
+    else
+    {
+        printf("\n\n-----------------------------------------------------------------");
+        printf("\nEstimated time duration to complete you workload\t: %d Days",++temp2);
+        printf("\n-----------------------------------------------------------------");
+    }
+
 
 }
 
