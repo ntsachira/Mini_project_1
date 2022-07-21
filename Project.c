@@ -37,10 +37,9 @@ void divider()
     printf("____________________________________________________________________\n");
 }
 
-void sleepCheck()
+float sleepCheck(int n)
 {
-
-    if(temp1[10]>6)
+    if(temp1[n]>6)
     {
         printf("\n*****************************ALERT!*****************************");
         printf("\n\nYOU ARE SLEEPING TOO MUCH! Do you wish to reduce sleeping? [Y/N] : ");
@@ -50,12 +49,21 @@ void sleepCheck()
         if(c == 'y'||c == 'Y')
         {
             printf("\nEnter your new sleeping time (in hours)\t: ");
-            scanf("%f",&temp1[10]);
+            scanf("%f",&temp1[n+1]);
 
-            sleepCheck();   //recurssion
+            temp1[n+2]=temp1[n]-temp1[n+1];   //extra time obtained from sleep
+
+            sleepCheck(n+1);   //recurssion
         }
     }
 
+    if(n==1)
+    {
+        printf("\nHow much time do yo wish to allocate?(in hours)\t: ");
+        scanf("%f",&temp1[n+2]);
+    }
+
+    return temp1[n+2];
 }
 
 
@@ -86,18 +94,16 @@ void recorder(char *mods, int modTotal)
         mods+=20;
     }
 
-
-
     printf("\n\nEnter your average sleeping time per day (in hours)\t: ");
     scanf("%f",&temp1[10]);
 
-    sleepCheck();
+    temp1[10] = sleepCheck(10);   //calling sleep check function
 
     printf("\nEnter the average number of hours you free for study in a normal day (in hours)\t: ");
     scanf("%f",&temp1[11]);
 
-
-    temp1[12]= temp1[4]/temp1[11];      //temp1[12] = estimated number of days
+label:
+    temp1[12]= temp1[4]/(temp1[11]+temp1[10]);      //temp1[12] = estimated number of days
 
     temp2 = (int)temp1[12]; //integer casting
 
@@ -113,8 +119,18 @@ void recorder(char *mods, int modTotal)
         printf("\nEstimated time duration to complete you workload\t: %d Days",++temp2);
         printf("\n-----------------------------------------------------------------");
     }
+printf("\n\nPlease wait...");
+    system("PAUSE");
 
+    char c;
+    printf("\n\nDo you wish to allocate more time from your sleep to your studies? [Y/N]\t: ");
+    scanf("%s",&c);
 
+    if(c == 'y'||c == 'Y')
+    {
+        temp1[10] += sleepCheck(1);   //function call
+        goto label;
+    }
 }
 
 
