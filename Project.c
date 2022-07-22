@@ -11,13 +11,13 @@ float temp1[20], tHours[20];
 
 int main()
 {
-    printf("==================================================================");
-    printf("\n\t\tWelcome to the study plan generator");
-    printf("\n==================================================================");
+    printf("=======================================================================================");
+    printf("\n\t\t\tWelcome to the study plan generator");
+    printf("\n=======================================================================================");
 
     int modTotal;   //holds the number of modules
 
-    printf("\n\nEnter the number of modules you wish to include\t: ");
+    printf("\n\n Enter the number of modules you wish to include\t: ");
     scanf("%d",&modTotal);
 
     char mods[modTotal][30];    //array of strings use to record modules
@@ -33,14 +33,14 @@ int main()
 
 void divider()
 {
-    printf("____________________________________________________________________\n");
+    printf("\n_______________________________________________________________________________________\n");
 }
 
 float sleepCheck(int n)
 {
     if(temp1[n]>6)
     {
-        printf("\n*******************************ALERT!*******************************");
+        printf("\n*****************************************ALERT!*****************************************");
         printf("\n\nYOU ARE SLEEPING TOO MUCH! Do you wish to reduce sleeping? [Y/N] : ");
         char c;
         scanf("%s",&c);
@@ -64,7 +64,7 @@ float sleepCheck(int n)
 int prasent(int total)
 {
     int new_days;
-    printf(" \nEnter a new time duration you wish \t\t: ");
+    printf("\nEnter a new time duration you wish \t\t: ");
     scanf("%d",&new_days);
 
     //line();
@@ -78,19 +78,19 @@ void recorder(char *mods, int modTotal)
 {
     for(counter1 = 0; counter1 < modTotal; counter1++)
     {
-        printf("\n\nEnter subject name (**Do not use any spaces**)  : ");
+        printf("\n\n Enter subject name (**Do not use any spaces**)  : ");
         scanf("%s",mods);
 
-        printf("\nEnter the number of lecture recordings in %-20s\t: ",mods);
+        printf("\n > Enter the number of lecture recordings in %-20s: ",mods);
         scanf("%f",&temp1[0]);
 
-        printf("\nEnter the average length(in hours) of a recording in %-20s: ",mods);
+        printf("\n > Enter the average length(in hours) of a recording in %-11s: ",mods);
         scanf("%f",&temp1[1]);
 
-        printf("\nEnter the total number of pages of lecture notes in %-12s: ",mods);
+        printf("\n > Enter the total number of pages of lecture notes in %-12s: ",mods);
         scanf("%f",&temp1[2]);
 
-        printf("\nEnter the average time do you need to read 10 pages (in minutes)\t: ");
+        printf("\n > Enter the average time you need to read 10 pages(in minutes)\t: ");
         scanf("%f",&temp1[3]);
         temp1[3]/=60;   //converted to hours
 
@@ -103,6 +103,8 @@ void recorder(char *mods, int modTotal)
     }
     printf("\n\nEnter the average number of hours you free for study in a normal day (in hours)\t: ");
     scanf("%f",&temp1[11]);
+
+    divider();
 
     printf("\n\nEnter your average sleeping time per day (in hours)\t: ");
     scanf("%f",&temp1[10]);
@@ -117,16 +119,16 @@ label:
 
     temp2 = (int)temp1[12]; //integer casting
 
-    printf("\n\n-----------------------------------------------------------------");
+    printf("\n\n-----------------------------------------------------------------------------------------");
     if(temp2 == temp1[12])
     {
-        printf("\nEstimated time duration to complete you workload\t: %d Days",temp2);
+        printf("\n\t\tESTIMATED TIME DURATION TO COMPLETE YOUR WORKLOAD : %d DAYS",temp2);
     }
     else
     {
-        printf("\nEstimated time duration to complete you workload\t: %d Days",++temp2);
+        printf("\n\t\tESTIMATED TIME DURATION TO COMPLETE YOUR WORKLOAD : %d DAYS",++temp2);
     }
-    printf("\n-----------------------------------------------------------------");
+    printf("\n-----------------------------------------------------------------------------------------");
 
     printf("\n\nPlease wait...");
 
@@ -137,16 +139,17 @@ label:
     printf("\nDo you need to change this estimate time duration(Y/N) :");
     scanf("%s",&check);
 
-    //line();
+
 
     if(check == 'y'||check == 'Y')
     {
         temp2=(int)temp1[4]*60;
 
         int nH = prasent(temp2);
+        printf("\n-----------------------------------------------------------------------------------------");
         if(nH< (24*60 -temp1[15]))
         {
-            printf("you have to work %dhrs %dmin per day",nH/60,nH%60);
+            printf("\n\t\t\tYOU HAVE TO WORK %d HOURS AND %d MINUTES PER DAY",nH/60,nH%60);
 
         }
         else
@@ -154,6 +157,7 @@ label:
             printf("you cannot reach this time duration \nplease Enter again");
             prasent(temp2);
         }
+        printf("\n-----------------------------------------------------------------------------------------");
     }
     else
     {
