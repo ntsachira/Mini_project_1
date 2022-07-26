@@ -323,7 +323,7 @@ label2:
             printTabs(tabCount+3);
             printf("YOU HAVE TO WORK %d HOURS AND %d MINUTES PER DAY",temp2/60,temp2%60);
 
-            printprintDivider(5);
+            printDivider(5);
             temp1[11]=temp2/60;
             goto label1;
 
