@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int counter1,counter2,temp2,days,T=6;    //global variables
+int counter1,counter2,temp2,days,tabCount=6;    //global variables
 float temp1[20], tHours[20],asH[20],timeCount=0;
 /* counter1 & counter2 are used to count iterations in loops
  * temp2 used to hold integer data temporarily
@@ -13,7 +13,7 @@ int main() {
     divider(1);
 
     printf("\n");
-    taber(T+3);
+    printTabs(tabCount+3);
     printf("WELCOME TO THE STUDY PLAN GENERATOR\n");
 
     divider(1);
@@ -21,11 +21,11 @@ int main() {
     int modTotal;   //holds the number of modules
 
     printf("\n\n ");
-    taber(T);
+    printTabs(tabCount);
     printf("Enter the number of modules you wish to include  : ");
 
     scanf("%d",&modTotal);
-    divider();
+    divider(0);
 
     char mods[modTotal][30];    //array of strings use to record modules
 
@@ -54,7 +54,6 @@ int main() {
         if(temp1[11]==timeCount) {
             divider(2);
             timeCount=0;
-
             printf("\n%8s %d\t\|","Day",++counter1);
         }
 
@@ -68,6 +67,7 @@ int main() {
                 printf("%15s   -   %.1fH\t|",mods[counter2],(temp1[11]-timeCount));
                 timeCount=temp1[11];
                 tHours[counter2]-=(temp1[11]-timeCount);
+
             } else {
                 if(tHours[counter2]>=2.5) {
                     printf("%15s   -   %.1fH\t|",mods[counter2],asH[counter2]);
@@ -93,7 +93,7 @@ label4:
 }
 
 
-void taber(int tab) {
+void printTabs(int tab) {
     for(int t=0; t<tab; t++) {
         printf("\t");
     }
@@ -104,7 +104,7 @@ void divider(int lineNum) {
     int x;
     switch (lineNum) {
     case 1:
-        taber(T);
+        printTabs(tabCount);
         for(x=0; x<41; x++) {
             printf("==");
         }
@@ -112,7 +112,7 @@ void divider(int lineNum) {
 
     case 2:
         printf("\n");
-        for(x=0; x<6; x++) {
+        for(x=0; x<8; x++) {
             printf("_________________________");
         }
         printf("\n");
@@ -120,7 +120,7 @@ void divider(int lineNum) {
 
     case 3:
         printf("\n");
-        taber(T);
+        printTabs(tabCount);
         for(x=0; x<20; x++) {
             printf("**");
         }
@@ -132,7 +132,7 @@ void divider(int lineNum) {
 
     case 4:
         printf("\n");
-        taber(T);
+        printTabs(tabCount);
         for(x=0; x<18; x++) {
             printf("**");
         }
@@ -144,7 +144,7 @@ void divider(int lineNum) {
 
     case 5:
         printf("\n");
-        taber(T);
+        printTabs(tabCount);
         for(x=0; x<41; x++) {
             printf("--");
         }
@@ -152,7 +152,7 @@ void divider(int lineNum) {
 
     default:
         printf("\n");
-        taber(T);
+        printTabs(tabCount);
         for(x=0; x<41; x++) {
             printf("__");
         }
@@ -166,7 +166,7 @@ float sleepCheck(int n) {
         divider(3);
 
         printf("\n\n");
-        taber(T);
+        printTabs(tabCount);
         printf("YOU ARE SLEEPING TOO MUCH! Do you wish to reduce sleeping? [Y/N] : ");
 
         char c;
@@ -177,7 +177,7 @@ label3:
         case 'Y':
         case 'y':
             printf("\n");
-            taber(T);
+            printTabs(tabCount);
             printf("Enter your new sleeping time (in hours)\t: ");
 
             scanf("%f",&temp1[n+1]);
@@ -197,7 +197,7 @@ label3:
             divider(4);
 
             printf("\n\n");
-            taber(T);
+            printTabs(tabCount);
             printf("Do you wish to reduce sleeping? [Y/N] : ");
 
             goto label3;
@@ -211,7 +211,7 @@ label3:
 int customDays(int total) { //total = total number of hours to complete the work in minutes
 
     printf("\n");
-    taber(T);
+    printTabs(tabCount);
     printf("Enter your expected number of days to be completed your workload\t\t: ");
 
     scanf("%d",&days);  //days = number of days user wanted
@@ -224,32 +224,32 @@ void recorder(char *mods, int modTotal) {
     for(counter1 = 0; counter1 < modTotal; counter1++) {
 
         printf("\n\n ");
-        taber(T);
+        printTabs(tabCount);
         printf("Enter subject name (**Do_not_use_any_spaces**)   : ");
 
         scanf("%s",mods);
 
         printf("\n ");
-        taber(T);
+        printTabs(tabCount);
         printf("> Enter the number of lecture recordings in %-23s: ",mods);
 
         scanf("%f",&temp1[0]);
 
         printf("\n ");
-        taber(T);
+        printTabs(tabCount);
         printf("> Enter the average length(in hours) of a recording in %-12s: ",mods);
 
         scanf("%f",&temp1[1]);
 
         printf("\n ");
-        taber(T);
+        printTabs(tabCount);
         printf("> Enter the total number of pages of lecture notes in %-13s: ",mods);
 
         scanf("%f",&temp1[2]);
 
         printf("\n ");
-        taber(T);
-        printf("> Enter the average time you need to study 10 pages(in minutes)     : ");
+        printTabs(tabCount);
+        printf("> Enter the average time you need to study 10 pages(in minutes)    : ");
 
         scanf("%f",&temp1[3]);
         temp1[3]/=600;   //converted to hours
@@ -262,7 +262,7 @@ void recorder(char *mods, int modTotal) {
         mods+=30;
     }
     printf("\n\n");
-    taber(T);
+    printTabs(tabCount);
     printf("Enter the average number of hours you free for study in a normal day (in hours)\t: ");
 
     scanf("%f",&temp1[11]);
@@ -270,7 +270,7 @@ void recorder(char *mods, int modTotal) {
     divider(0);
 
     printf("\n\n");
-    taber(T);
+    printTabs(tabCount);
     printf("Enter your average sleeping time per day (in hours)\t: ");
 
     scanf("%f",&temp1[10]);
@@ -284,12 +284,12 @@ void recorder(char *mods, int modTotal) {
     divider(5);
     if(temp2 == temp1[12]) {
         printf("\n");
-        taber(T+2);
+        printTabs(tabCount+2);
         printf("ESTIMATED TIME DURATION TO COMPLETE YOUR WORKLOAD : %d DAYS",temp2);
 
     } else {
         printf("\n");
-        taber(T+2);
+        printTabs(tabCount+2);
         printf("ESTIMATED TIME DURATION TO COMPLETE YOUR WORKLOAD : %d DAYS",++temp2);
     }
 
@@ -297,7 +297,7 @@ void recorder(char *mods, int modTotal) {
     divider(5);
 
     printf("\n\n");
-    taber(T);
+    printTabs(tabCount);
     printf("Please wait...");
 
     system("PAUSE");    //hold the execution temporary until any key is pressed
@@ -305,7 +305,7 @@ void recorder(char *mods, int modTotal) {
     char check;
 label1:
     printf("\n\n");
-    taber(T);
+    printTabs(tabCount);
     printf("Do you need to customize the time duration(Y/N) :");
 
     scanf("%s",&check);
@@ -320,7 +320,7 @@ label2:
             divider(5);
 
             printf("\n");
-            taber(T+3);
+            printTabs(tabCount+3);
             printf("YOU HAVE TO WORK %d HOURS AND %d MINUTES PER DAY",temp2/60,temp2%60);
 
             divider(5);
@@ -331,7 +331,7 @@ label2:
             divider(3);
 
             printf("\n\n");
-            taber(T);
+            printTabs(tabCount);
             printf("***YOUR REQUEST EXCEEDS THE DAILY LIMIT. PLEASE TRY A HIGHER NUMBER OF DAYS***\n\n");
 
             goto label2;
@@ -341,7 +341,7 @@ label2:
     case 'N':
     case 'n':
         printf("\n\n");
-        taber(T);
+        printTabs(tabCount);
         printf("Your request is being processed. please wait...");
 
         system("PAUSE");
@@ -349,7 +349,7 @@ label2:
         divider(0);
 
         printf("\n");
-        taber(T+2);
+        printTabs(tabCount+2);
         printf("NOW YOU CAN FOLLOW THE STUDY PLAN BELOW");
 
         divider(0);
