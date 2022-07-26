@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int counter1,counter2,temp2,days,tabCount=6;    //global variables
+int temp2,days,tabCount=6;    //global variables
 float temp1[20], tHours[20],asH[20],timeCount=0;
 /* counter1 & counter2 are used to count iterations in loops
  * temp2 used to hold integer data temporarily
@@ -10,13 +10,13 @@ float temp1[20], tHours[20],asH[20],timeCount=0;
  */
 
 int main() {
-    divider(1);
+    printDivider(1);
 
     printf("\n");
     printTabs(tabCount+3);
     printf("WELCOME TO THE STUDY PLAN GENERATOR\n");
 
-    divider(1);
+    printDivider(1);
 
     int modTotal;   //holds the number of modules
 
@@ -25,69 +25,69 @@ int main() {
     printf("Enter the number of modules you wish to include  : ");
 
     scanf("%d",&modTotal);
-    divider(0);
+    printDivider(0);
 
-    char mods[modTotal][30];    //array of strings use to record modules
+    char modules[modTotal][30];    //array of strings use to record modules
 
-    recorder(&mods[0], modTotal); //calling the recorder function
+    getUserData(&modules[0], modTotal); //calling the recorder function
 
-    ranker(&tHours[0],&mods[0], modTotal); //calling the ranker function
+    sortModules(&tHours[0],&modules[0], modTotal); //calling the ranker function
 
 
     //processing the study plan
-    for(counter2=0; counter2<modTotal; counter2++) {
-        if(counter2<(modTotal/2)) {
-            asH[counter2]=2.5;
-        } else asH[counter2]=1.5;
+    for(int i=0; i<modTotal; i++) {
+        if(i<(modTotal/2)) {
+            asH[i]=2.5;
+        } else asH[i]=1.5;
     }
 
-    counter1=0;
-    divider(2);
+    int dayCount=0;
+    printDivider(2);
 
-    printf("\n%8s %d\t\|","Day",++counter1);
+    printf("\n%8s %d\t\t|","Day",++dayCount);
 
-    for(counter2=0; counter2<=modTotal; counter2++) {
-        if(counter2==modTotal) {
-            counter2=0;
+    for(int i=0; i<=modTotal; i++) {
+        if(i==modTotal) {
+            i=0;
         }
 
         if(temp1[11]==timeCount) {
-            divider(2);
+            printDivider(2);
             timeCount=0;
-            printf("\n%8s %d\t\|","Day",++counter1);
+            printf("\n%8s %d\t\t|","Day",++dayCount);
         }
 
-        if(tHours[counter2]>1) {
+        if(tHours[i]>1) {
 
-            if(temp1[11]-timeCount<asH[counter2]) {   //day filler
-                if(tHours[counter2]<asH[counter2]) {
+            if(temp1[11]-timeCount<asH[i]) {   //day filler
+                if(tHours[i]<asH[i]) {
                     goto label4;
                 }
 
-                printf("%15s   -   %.1fH\t|",mods[counter2],(temp1[11]-timeCount));
+                printf("%15s   -   %.1fH\t|",modules[i],(temp1[11]-timeCount));
                 timeCount=temp1[11];
-                tHours[counter2]-=(temp1[11]-timeCount);
+                tHours[i]-=(temp1[11]-timeCount);
 
             } else {
-                if(tHours[counter2]>=2.5) {
-                    printf("%15s   -   %.1fH\t|",mods[counter2],asH[counter2]);
-                    timeCount+=asH[counter2];
-                    tHours[counter2]-=asH[counter2];
+                if(tHours[i]>=2.5) {
+                    printf("%15s   -   %.1fH\t|",modules[i],asH[i]);
+                    timeCount+=asH[i];
+                    tHours[i]-=asH[i];
                 } else {
 label4:
-                    printf("%15s   -   %.1fH\t|",mods[counter2],tHours[counter2]);
-                    timeCount+=tHours[counter2];
-                    tHours[counter2]=0;
+                    printf("%15s   -   %.1fH\t|",modules[i],tHours[i]);
+                    timeCount+=tHours[i];
+                    tHours[i]=0;
                 }
             }
         }
 
-        if(tHours[0]==0&&tHours[1]==0&&tHours[2]==0&&tHours[3]==0||counter1==days) {
+        if(tHours[0]==0&&tHours[1]==0&&tHours[2]==0&&tHours[3]==0||dayCount==days) {
             break;
         }
     }
 
-    divider(2);
+    printDivider(2);
 
     return 0;
 }
@@ -100,7 +100,7 @@ void printTabs(int tab) {
 }
 
 
-void divider(int lineNum) {
+void printDivider(int lineNum) {
     int x;
     switch (lineNum) {
     case 1:
@@ -163,7 +163,7 @@ void divider(int lineNum) {
 
 float sleepCheck(int n) {
     if(temp1[n]>6) {
-        divider(3);
+        printDivider(3);
 
         printf("\n\n");
         printTabs(tabCount);
@@ -194,7 +194,7 @@ label3:
             break;
 
         default:
-            divider(4);
+            printDivider(4);
 
             printf("\n\n");
             printTabs(tabCount);
@@ -220,8 +220,8 @@ int customDays(int total) { //total = total number of hours to complete the work
 }
 
 
-void recorder(char *mods, int modTotal) {
-    for(counter1 = 0; counter1 < modTotal; counter1++) {
+void getUserData(char *mods, int modTotal) {
+    for(int i = 0; i < modTotal; i++) {
 
         printf("\n\n ");
         printTabs(tabCount);
@@ -254,11 +254,11 @@ void recorder(char *mods, int modTotal) {
         scanf("%f",&temp1[3]);
         temp1[3]/=600;   //converted to hours
 
-        tHours[counter1]= (temp1[0]*(temp1[1]+1))+(temp1[2]*temp1[3]) ;  //added one hour extra
+        tHours[i]= (temp1[0]*(temp1[1]+1))+(temp1[2]*temp1[3]) ;  //added one hour extra
 
-        temp1[4]+= tHours[counter1]; //temp1[4] = sum of the total hours per module
+        temp1[4]+= tHours[i]; //temp1[4] = sum of the total hours of all module
 
-        divider(0);
+        printDivider(0);
         mods+=30;
     }
     printf("\n\n");
@@ -267,7 +267,7 @@ void recorder(char *mods, int modTotal) {
 
     scanf("%f",&temp1[11]);
 
-    divider(0);
+    printDivider(0);
 
     printf("\n\n");
     printTabs(tabCount);
@@ -281,7 +281,7 @@ void recorder(char *mods, int modTotal) {
 
     temp2 = (int)temp1[12]; //integer casting
 
-    divider(5);
+    printDivider(5);
     if(temp2 == temp1[12]) {
         printf("\n");
         printTabs(tabCount+2);
@@ -294,7 +294,7 @@ void recorder(char *mods, int modTotal) {
     }
 
     days=temp2;
-    divider(5);
+    printDivider(5);
 
     printf("\n\n");
     printTabs(tabCount);
@@ -317,18 +317,18 @@ label2:
         temp2 = customDays(temp1[4]*60);    //nH - new working time to reach the target
 
         if(temp2<(18*60)) { //6 hours - Allocated for essential daily chores
-            divider(5);
+            printDivider(5);
 
             printf("\n");
             printTabs(tabCount+3);
             printf("YOU HAVE TO WORK %d HOURS AND %d MINUTES PER DAY",temp2/60,temp2%60);
 
-            divider(5);
+            printprintDivider(5);
             temp1[11]=temp2/60;
             goto label1;
 
         } else {
-            divider(3);
+            printDivider(3);
 
             printf("\n\n");
             printTabs(tabCount);
@@ -346,40 +346,40 @@ label2:
 
         system("PAUSE");
 
-        divider(0);
+        printDivider(0);
 
         printf("\n");
         printTabs(tabCount+2);
         printf("NOW YOU CAN FOLLOW THE STUDY PLAN BELOW");
 
-        divider(0);
+        printDivider(0);
         break;
 
     default:
-        divider(4);
+        printDivider(4);
         goto label1;
     }
 }
 
 
-void ranker(float *ptr,char *mods, int modCount) {
-    for(counter1 = 1; counter1 < modCount; counter1++) {
-        for(counter2 = 1; counter2 < modCount; counter2++) {
-            if(*ptr < *(ptr+1)) {
+void sortModules(float *hoursPerModules,char *mods, int modCount) {
+    for(int i = 1; i < modCount; i++) {
+        for(int j = 1; j < modCount; j++) {
+            if(*hoursPerModules < *(hoursPerModules+1)) {
                 int c;
 
-                c = *ptr;
-                *ptr = *(ptr+1);
-                *(ptr+1) = c;
+                c = *hoursPerModules;
+                *hoursPerModules = *(hoursPerModules+1);
+                *(hoursPerModules+1) = c;
 
                 c = *mods;
                 *mods = *(mods+1);
                 *(mods+1) = c;
             }
-            ptr++;
+            hoursPerModules++;
             mods+=20;
         }
-        ptr = ptr - (modCount-1);
+        hoursPerModules = hoursPerModules - (modCount-1);
         mods = mods - ((modCount-1)*20);
     }
 }
