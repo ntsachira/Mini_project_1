@@ -1,8 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 
+void printDivider(int lineNum);
+void printTabs(int tab);
+float sleepCheck(int n);
+int customDays(int total);
+void getUserData(int modTotal);
+
 int temp2,days,tabCount=6;    //global variables
 float temp1[20], tHours[20],asH[20],timeCount=0;
+char modules[15][30]; 
+
 /* counter1 & counter2 are used to count iterations in loops
  * temp2 used to hold integer data temporarily
  * temp1[] is a float array used to hold float data temporarily
@@ -27,11 +35,11 @@ int main() {
     scanf("%d",&modTotal);
     printDivider(0);
 
-    char modules[modTotal][30];    //array of strings use to record modules
+    //char modules[modTotal][30];    //array of strings use to record modules
 
-    getUserData(&modules[0], modTotal); //calling the recorder function
+    getUserData(modTotal); //calling the recorder function
 
-    sortModules(&tHours[0],&modules[0], modTotal); //calling the ranker function
+    sortModules(&tHours[0],&modules[0], modTotal); //calling the sortModules function
 
 
     //processing the study plan
@@ -59,7 +67,7 @@ int main() {
 
         if(tHours[i]>1) {
 
-            if(temp1[11]-timeCount<asH[i]) {   //day filler
+            if(temp1[11]-timeCount<asH[i]) {   
                 if(tHours[i]<asH[i]) {
                     goto label4;
                 }
@@ -220,30 +228,30 @@ int customDays(int total) { //total = total number of hours to complete the work
 }
 
 
-void getUserData(char *mods, int modTotal) {
+void getUserData(int modTotal) {
     for(int i = 0; i < modTotal; i++) {
 
         printf("\n\n ");
         printTabs(tabCount);
         printf("Enter subject name (**Do_not_use_any_spaces**)   : ");
 
-        scanf("%s",mods);
+       scanf("%s",modules[i]);
 
         printf("\n ");
         printTabs(tabCount);
-        printf("> Enter the number of lecture recordings in %-23s: ",mods);
+        printf("> Enter the number of lecture recordings in %-23s: ",modules[i]);
 
         scanf("%f",&temp1[0]);
 
         printf("\n ");
         printTabs(tabCount);
-        printf("> Enter the average length(in hours) of a recording in %-12s: ",mods);
+        printf("> Enter the average length(in hours) of a recording in %-12s: ",modules[i]);
 
         scanf("%f",&temp1[1]);
 
         printf("\n ");
         printTabs(tabCount);
-        printf("> Enter the total number of pages of lecture notes in %-13s: ",mods);
+        printf("> Enter the total number of pages of lecture notes in %-13s: ",modules[i]);
 
         scanf("%f",&temp1[2]);
 
@@ -259,7 +267,7 @@ void getUserData(char *mods, int modTotal) {
         temp1[4]+= tHours[i]; //temp1[4] = sum of the total hours of all module
 
         printDivider(0);
-        mods+=30;
+       
     }
     printf("\n\n");
     printTabs(tabCount);
