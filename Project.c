@@ -7,8 +7,8 @@ float sleepCheck(int n);
 int customDays(int total);
 void getUserData(int modTotal);
 
-int temp2,days,tabCount=6;    //global variables
-float temp1[20], tHours[20],asH[20],timeCount=0;
+int temp2, days, tabCount=6;    //global variables
+float temp1[20], modTotalHours[20], asH[20], timeCount=0;
 char modules[15][30]; 
 
 /* counter1 & counter2 are used to count iterations in loops
@@ -39,17 +39,17 @@ int main() {
 
     getUserData(modTotal); //calling the recorder function
 
-    sortModules(&tHours[0],&modules[0], modTotal); //calling the sortModules function
+    sortModules(modTotal); //calling the sortModules function
 
 
     //processing the study plan
     for(int i=0; i<modTotal; i++) {
         if(i<(modTotal/2)) {
-            asH[i]=2.5;
-        } else asH[i]=1.5;
+            asH[i]=3;
+        } else asH[i]=2;
     }
 
-    int dayCount=0;
+    int dayCount=0;    
     printDivider(2);
 
     printf("\n%8s %d\t\t|","Day",++dayCount);
@@ -65,32 +65,32 @@ int main() {
             printf("\n%8s %d\t\t|","Day",++dayCount);
         }
 
-        if(tHours[i]>1) {
+        if(modTotalHours[i]>1) {
 
             if(temp1[11]-timeCount<asH[i]) {   
-                if(tHours[i]<asH[i]) {
+                if(modTotalHours[i]<asH[i]) {
                     goto label4;
                 }
 
                 printf("%15s   -   %.1fH\t|",modules[i],(temp1[11]-timeCount));
                 timeCount=temp1[11];
-                tHours[i]-=(temp1[11]-timeCount);
+                modTotalHours[i]-=(temp1[11]-timeCount);
 
             } else {
-                if(tHours[i]>=2.5) {
+                if(modTotalHours[i]>=3) {
                     printf("%15s   -   %.1fH\t|",modules[i],asH[i]);
                     timeCount+=asH[i];
-                    tHours[i]-=asH[i];
+                    modTotalHours[i]-=asH[i];
                 } else {
 label4:
-                    printf("%15s   -   %.1fH\t|",modules[i],tHours[i]);
-                    timeCount+=tHours[i];
-                    tHours[i]=0;
+                    printf("%15s   -   %.1fH\t|",modules[i],modTotalHours[i]);
+                    timeCount+=modTotalHours[i];
+                    modTotalHours[i]=0;
                 }
             }
         }
 
-        if(tHours[0]==0&&tHours[1]==0&&tHours[2]==0&&tHours[3]==0||dayCount==days) {
+        if(modTotalHours[0]==0&&modTotalHours[1]==0&&modTotalHours[2]==0&&modTotalHours[3]==0||dayCount==days) {
             break;
         }
     }
@@ -106,6 +106,10 @@ void printTabs(int tab) {
         printf("\t");
     }
 }
+
+/*void lineWidth(){
+    if(temp2)
+}*/
 
 
 void printDivider(int lineNum) {
@@ -262,9 +266,9 @@ void getUserData(int modTotal) {
         scanf("%f",&temp1[3]);
         temp1[3]/=600;   //converted to hours
 
-        tHours[i]= (temp1[0]*(temp1[1]+1))+(temp1[2]*temp1[3]) ;  //added one hour extra
+        modTotalHours[i]= (temp1[0]*(temp1[1]+1))+(temp1[2]*temp1[3]) ;  //added one hour extra
 
-        temp1[4]+= tHours[i]; //temp1[4] = sum of the total hours of all module
+        temp1[4]+= modTotalHours[i]; //temp1[4] = sum of the total hours of all module
 
         printDivider(0);
        
@@ -357,7 +361,7 @@ label2:
         printDivider(0);
 
         printf("\n");
-        printTabs(tabCount+2);
+        printTabs(tabCount+3);
         printf("NOW YOU CAN FOLLOW THE STUDY PLAN BELOW");
 
         printDivider(0);
@@ -370,26 +374,24 @@ label2:
 }
 
 
-void sortModules(float *hoursPerModules,char *mods, int modCount) {
+void sortModules(int modCount) {
     for(int i = 1; i < modCount; i++) {
-        for(int j = 1; j < modCount; j++) {
-            if(*hoursPerModules < *(hoursPerModules+1)) {
-                int c;
+        for(int j = 0; j < modCount-1; j++) {
+            if(modTotalHours[j] < modTotalHours[j+1]) {
 
-                c = *hoursPerModules;
-                *hoursPerModules = *(hoursPerModules+1);
-                *(hoursPerModules+1) = c;
+                char c[20];
+                int C;
 
-                c = *mods;
-                *mods = *(mods+1);
-                *(mods+1) = c;
-            }
-            hoursPerModules++;
-            mods+=20;
-        }
-        hoursPerModules = hoursPerModules - (modCount-1);
-        mods = mods - ((modCount-1)*20);
+                C = modTotalHours[j];
+                modTotalHours[j] = modTotalHours[j+1];
+                modTotalHours[j+1] = C;
+
+                strcpy(c,modules[j]);
+                strcpy(modules[j],modules[j+1]);
+                strcpy(modules[j+1],c);                
+            }           
+            
+        }      
+       
     }
 }
-
-
